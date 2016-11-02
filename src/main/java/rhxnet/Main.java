@@ -1,33 +1,33 @@
 package rhxnet;
 
-import org.joda.time.DateTime;
 import rhxnet.skypicker.RestApi;
 import rhxnet.skypicker.pojo.response.Flight;
-import rhxnet.skypicker.pojo.response.Flights;
 
 import java.text.SimpleDateFormat;
 
 public class Main {
 
     private static final SimpleDateFormat DATE_FORMAT_DAY = new SimpleDateFormat("dd/MM/yyyy");
+    private static final Integer MONTH_DAYS = 30;
+
+    public static final String FROM = "BTS,KSC,VIE,PRG,BUD,KRK,KTW";
 
     public static void main(String[] args) {
-        RestApi restApi = new RestApi();
 
-        DateTime today = new DateTime();
-        DateTime tomorrow = today.plusDays(1);
-        DateTime inTwoWeeks = today.plusDays(14);
+        final RestApi restApi = new RestApi();
+        final AirfareChecker airfareChecker = new AirfareChecker(restApi);
 
-        Flights flights = restApi.getFlights("PL,CZ,AT,HU", "Singapore", DATE_FORMAT_DAY.format(tomorrow.toDate()),
-                DATE_FORMAT_DAY.format(inTwoWeeks.toDate()), 18, 22, 4);
+//        findCheapest(airfareChecker, "Singapore");
+//        findCheapest(airfareChecker, "Jakarta");
+//        findCheapest(airfareChecker, "Denpasar");
+        findCheapest(airfareChecker, "Kuala Lumpur");
 
+    }
 
-        System.out.println("Currency: " + flights.currency);
-
-        for (Flight flight : flights.data) {
-            System.out.println("");
-            System.out.print(flight.price / 4 + ": " + flight);
+    private static void findCheapest(AirfareChecker airfareChecker, String destination) {
+        Flight flight = airfareChecker.findCheapestFlight(FROM, destination);
+        if (flight != null) {
+            System.out.println(destination + "(" + flight.price / 4 + "): " + flight);
         }
-
     }
 }

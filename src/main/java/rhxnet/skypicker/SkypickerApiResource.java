@@ -14,8 +14,8 @@ public interface SkypickerApiResource {
     @Path("/flights?flyFrom={from}&to={to}&dateFrom={dateFrom}&dateTo={dateTo}" +
             "&daysInDestinationFrom={daysInDestinationFrom}&daysInDestinationTo={daysInDestinationTo}" +
             "&passengers={passengers}" +
-            "&sort=price" +
-            "&limit=5")
+            "&limit={limit}" +
+            "&sort=price")
     @Produces(MediaType.APPLICATION_JSON)
     public Flights getFlights(@PathParam("from") String from,
                               @PathParam("to") String to,
@@ -23,5 +23,6 @@ public interface SkypickerApiResource {
                               @PathParam("dateTo") String dateTo,
                               @PathParam("daysInDestinationFrom") Integer daysInDestinationFrom,
                               @PathParam("daysInDestinationTo") Integer daysInDestinationTo,
-                              @PathParam("passengers") Integer passengers);
+                              @PathParam("passengers") Integer passengers,
+                              @PathParam("limit") Integer limit);
 }

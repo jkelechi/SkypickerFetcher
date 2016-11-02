@@ -32,8 +32,9 @@ public class RestApi {
     }
 
     public Flights getFlights(String from, String to, String dateFrom, String dateTo, Integer daysInDestinationFrom,
-                              Integer daysInDestinationTo, Integer passengers) {
-        return service.getFlights(from, to, dateFrom, dateTo, daysInDestinationFrom, daysInDestinationTo, passengers);
+                              Integer daysInDestinationTo, Integer passengers, Integer limit) {
+        return service.getFlights(from, to, dateFrom, dateTo, daysInDestinationFrom, daysInDestinationTo, passengers,
+                limit);
     }
 
     public static class CustomLogger extends Logger {
